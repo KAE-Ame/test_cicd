@@ -22,4 +22,4 @@ jobs:
               with:
                   name: build
             - name: Deploy
-              run: echo "Let's think we use build files to deploy" && ls && ls build
+              run: echo "Let's think we use build files to deploy" && ls && pwd
