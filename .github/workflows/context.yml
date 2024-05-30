@@ -1,0 +1,8 @@
+name: Print context
+on: [push, pull_request]
+jobs:
+    print_context:
+        runs-on: ubuntu-latest
+        steps:
+            - name: Print context
+                run: echo "${{ toJSON(github) }}"
