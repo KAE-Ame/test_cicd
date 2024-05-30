@@ -1,0 +1,25 @@
+name: Deploy app
+on: push
+jobs:
+    test:
+        runs-on: ubuntu-22.04
+        steps:
+            - uses: actions/checkout@v3
+            - uses: actions/setup-node@v3
+            - run: npm ci
+            - run: npm run test
+    lint:
+        runs-on: ubuntu-22.04
+        steps:
+            - uses: actions/checkout@v3
+            - uses: actions/setup-node@v3
+            - run: npm ci
+            - run: npm run lint
+    build:
+        runs-on: ubuntu-22.04
+        steps:
+            - uses: actions/checkout@v3
+            - uses: actions/setup-node@v3
+            - run: npm ci
+            - run: npm run build
+            - run: echo "Let's think it's deploying to some place.."
