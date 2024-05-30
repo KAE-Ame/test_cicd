@@ -2,14 +2,19 @@ name: Deploy app
 on:
   push:
     branches: master
-    paths-ignore:
-        - '.github/workflows/*'
+#    paths-ignore:
+#        - '.github/workflows/*'
 jobs:
     test:
         runs-on: ubuntu-22.04
         steps:
             - uses: actions/checkout@v3
             - uses: actions/setup-node@v3
+            - name: Cache deps
+              uses: actions/cache@v3
+              with:
+                path: ~/.npm
+                key: deps-node-${{ hashFiles('**/package-lock.json') }}
             - run: npm ci
             - run: npm run test
     lint:
@@ -17,6 +22,11 @@ jobs:
         steps:
             - uses: actions/checkout@v3
             - uses: actions/setup-node@v3
+            - name: Cache deps
+              uses: actions/cache@v3
+              with:
+                path: ~/.npm
+                key: deps-node-${{ hashFiles('**/package-lock.json') }}
             - run: npm ci
             - run: npm run lint
     build:
@@ -25,6 +35,11 @@ jobs:
         steps:
             - uses: actions/checkout@v3
             - uses: actions/setup-node@v3
+            - name: Cache deps
+              uses: actions/cache@v3
+              with:
+                path: ~/.npm
+                key: deps-node-${{ hashFiles('**/package-lock.json') }}
             - run: npm ci
             - run: npm run build
             - run: echo "Let's think it's deploying to some place.."
